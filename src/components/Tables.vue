@@ -1,25 +1,44 @@
 <template>
   <div class="tables">
     <h1>{{ msg }}</h1>
-    <input
-      type="radio"
-      v-bind:value="{ name: 'Tom', age: 22 }"
-      v-model="user">
-      <label>Tom</label>
-      <input type="radio" v-bind:value="{name:'Bob', age:25}" v-model="user">
-        <label>Bob</label>
-      <input type="radio" v-bind:value="{name:'Sam', age:28}" v-model="user">
-        <label>Sam</label>
-      <span>Выбрано:{{user.name}} - {{user.age}}</span>
+    <button
+      v-on:click="component = 'get-buyer'">buyer</button>
+
+    <button
+          v-on:click="component = 'get-cell'">cell</button>
+
+      <component v-bind:is="component"></component>
   </div>
 </template>
 
 <script>
+import getBuyer from "@/components/buyer/GetBuyer.vue"
+import getCell from "@/components/cell/GetCell.vue"
+import getDetail from "@/components/detail/GetDetail.vue"
+import getPurchase from "@/components/purchase/GetPurchase.vue"
+import getSupplier from "@/components/supplier/GetSupplier.vue"
+import getSupply from "@/components/supply/GetSupply.vue"
+
+
 export default {
   name: "Tables",
   props: {
     msg: String
+  },
+  components: {
+    "get-buyer": getBuyer,
+    "get-cell": getCell,
+    "get-detail": getDetail,
+    "get-purchase": getPurchase,
+    "get-supplier": getSupplier,
+    "get-supply": getSupply
+  },
+  data(){
+    return{
+        component: "get-buyer"
+    }
   }
+
 };
 </script>
 
