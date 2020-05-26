@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    <Tables msg="Таблицы:" />
+    <Tables />
   </div>
 </template>
 
