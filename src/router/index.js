@@ -12,8 +12,8 @@ const routes = [
   },
   {
     path: "/view",
-    name: "View",
-    component: () => import("../views/View.vue")
+    name: "ViewTables",
+    component: () => import("../views/ViewTables.vue")
   },
   {
     path: "/edit",

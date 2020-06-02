@@ -13,7 +13,6 @@
     import axios from "axios";
 
     export default {
-     //   name: "add-buyer",
         data() {
             return {
                 postBody: {

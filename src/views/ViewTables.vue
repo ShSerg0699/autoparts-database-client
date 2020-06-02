@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import Tables from "@/components/Tables.vue";
+import GetTables from "@/components/GetTables.vue";
 
 export default {
-  name: "View",
+  name: "ViewTables",
   components: {
-    Tables
+    Tables: GetTables
   }
 };
 </script>
