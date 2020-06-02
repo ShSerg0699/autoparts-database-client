@@ -1,12 +1,47 @@
 <template>
-    <div class="Supplier">
-        <pre v-text="$attrs"/>
-    </div>
+    <fish-form class="supplierForm" ref="getSupplier">
+        <h2>Поставщики</h2>
+        <fish-fields>
+            <fish-field label="Введите ID поставщика" span="8" name="supplierID">
+                <fish-input-number v-model="id"></fish-input-number>
+            </fish-field>
+            <fish-field class="idButton">
+                <fish-button type="primary" @click="getSupplierById(id)">Посмотреть поставщика по id</fish-button>
+            </fish-field>
+            <fish-field class="allButton">
+                <fish-button type="primary" @click="getAllSupplier">Посмотреть всех поставщиков</fish-button>
+            </fish-field>
+        </fish-fields>
+        <p>{{ data }}</p>
+    </fish-form>
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
-        props: {
+        name: "get-supplier",
+        data() {
+            return {
+                id: null,
+                data: null
+            }
         },
+        methods: {
+            getSupplierById: function () {
+                axios.get("http://localhost:8081/supplier?supplierID=" + this.id).then(response => (this.data = response.data))
+            },
+            getAllSupplier: function () {
+                axios.get("http://localhost:8081/supplierAll").then(response => (this.data = response.data))
+            }
+        }
     };
 </script>
+
+<style scoped>
+    .supplierForm .idButton, .supplierForm .allButton {
+        display: grid;
+        align-items: end;
+    }
+</style>
+

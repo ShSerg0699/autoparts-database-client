@@ -1,9 +1,9 @@
 <template>
-    <fish-form ref="addPurchase">
+    <fish-form class="purchaseForm" ref="addPurchase">
         <h2>Добавить покупку {{postBody.detailList[0].detailID}}</h2>
         <fish-field label="Дата покупки" span="12" name="date"
                     :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">
-            <fish-date-picker v-model="postBody.purchaseDate"></fish-date-picker>
+            <fish-date-picker v-model="postBody.purchaseDate" hint=""></fish-date-picker>
         </fish-field>
         <fish-fields>
             <fish-field label="ID покупателя" span="12" name="buyerID"
@@ -16,18 +16,17 @@
         </fish-fields>
 
         <fish-fields v-bind:key="index" v-for="(detail, index) in postBody.detailList">
-            <p>{{index}}</p>
-            <fish-field label="ID детали" span="12" name="detailID">
-<!--                        :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">-->
+            <fish-field label="ID детали" span="12" name="detailID"
+                        :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
                 <fish-input-number v-model="detail.detailID"></fish-input-number>
             </fish-field>
-            <fish-field label="Количество" name="count">
-<!--                        :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">-->
+            <fish-field label="Количество" name="count"
+                        :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">
                 <fish-input-number min="0" max="1000"
                                    v-model="detail.quantity"></fish-input-number>
             </fish-field>
-            <fish-field>
-                <fish-button type="negative" @click="submitHandler">убрать деталь</fish-button>
+            <fish-field class="dropDetail">
+                <fish-button type="negative" @click="deleteDetail(index)">убрать деталь</fish-button>
             </fish-field>
         </fish-fields>
 
@@ -84,3 +83,9 @@
     }
 </script>
 
+<style scoped>
+    .purchaseForm .dropDetail{
+        display: grid;
+        align-items: end;
+    }
+</style>

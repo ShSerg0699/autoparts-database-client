@@ -1,12 +1,19 @@
 <template>
-    <div class="getPurchase">
-        <h2>Посмотреть покупки</h2>
-        <input type="text" v-model="id" placeholder="Введите ID покупки" />
-
-        <button v-on:click="getPurchaseById(id)">Get by ID</button>
-        <button v-on:click="getAllPurchase">Get all</button>
+    <fish-form class="purchaseForm" ref="getPurchase">
+        <h2>Покупки</h2>
+        <fish-fields>
+            <fish-field label="Введите ID покупки" span="8" name="purchaseID">
+                <fish-input-number v-model="id"></fish-input-number>
+            </fish-field>
+            <fish-field class="idButton">
+                <fish-button type="primary" @click="getPurchaseById(id)">Посмотреть покупку по id</fish-button>
+            </fish-field>
+            <fish-field class="allButton">
+                <fish-button type="primary" @click="getAllPurchase">Посмотреть все покупки</fish-button>
+            </fish-field>
+        </fish-fields>
         <p>{{ data }}</p>
-    </div>
+    </fish-form>
 </template>
 
 <script>
@@ -30,3 +37,11 @@
         }
     };
 </script>
+
+
+<style scoped>
+    .purchaseForm .idButton, .purchaseForm .allButton {
+        display: grid;
+        align-items: end;
+    }
+</style>

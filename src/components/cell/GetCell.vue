@@ -1,12 +1,19 @@
 <template>
-    <div class="getCell">
-        <h2>Cell</h2>
-        <input type="text" v-model="id" placeholder="Введите ID покупателя" />
-
-        <button v-on:click="getCellById(id)">Get by ID</button>
-        <button v-on:click="getAllCell">Get all</button>
+    <fish-form class="cellForm" ref="getCell">
+        <h2>Ячейки на складе</h2>
+        <fish-fields>
+            <fish-field label="Введите ID ячейки" span="8" name="cellID">
+                <fish-input-number v-model="id"></fish-input-number>
+            </fish-field>
+            <fish-field class="idButton">
+                <fish-button type="primary" @click="getCellById(id)">Посмотреть ячейку по id</fish-button>
+            </fish-field>
+            <fish-field class="allButton">
+                <fish-button type="primary" @click="getAllCell">Посмотреть все ячейки</fish-button>
+            </fish-field>
+        </fish-fields>
         <p>{{ data }}</p>
-    </div>
+    </fish-form>
 </template>
 
 <script>
@@ -30,3 +37,10 @@
         }
     };
 </script>
+
+<style scoped>
+    .cellForm .idButton, .cellForm .allButton {
+        display: grid;
+        align-items: end;
+    }
+</style>
