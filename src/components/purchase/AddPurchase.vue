@@ -1,6 +1,6 @@
 <template>
     <fish-form class="purchaseForm" ref="addPurchase">
-        <h2>Добавить покупку {{postBody.detailList[0].detailID}}</h2>
+        <h2>Добавить покупку</h2>
         <fish-field label="Дата покупки" span="12" name="date"
                     :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">
             <fish-date-picker v-model="postBody.purchaseDate" hint=""></fish-date-picker>
@@ -8,11 +8,11 @@
         <fish-fields>
             <fish-field label="ID покупателя" span="12" name="buyerID"
                         :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
-                <fish-input-number v-model="postBody.buyerID"></fish-input-number>
+                <fish-input-number v-model="postBody.buyer.buyerID"></fish-input-number>
             </fish-field>
         </fish-fields>
         <fish-fields>
-            <fish-button type="positive" @click="submitHandler">добавить деталь</fish-button>
+            <fish-button type="positive" @click="addDetail">добавить деталь</fish-button>
         </fish-fields>
 
         <fish-fields v-bind:key="index" v-for="(detail, index) in postBody.detailList">
@@ -49,12 +49,8 @@
                     },
                     detailList: [
                         {
-                            detailID: 1,
-                            quantity: 3
-                        },
-                        {
-                            detailID: 2,
-                            quantity: 1
+                            detailID: null,
+                            quantity: null
                         }
                     ]
                 }
@@ -64,18 +60,22 @@
             submitHandler() {
                 axios.post("http://localhost:8081/purchaseAdd",
                     {
-                        purchaseDate: this.purchaseDate,
+                        purchaseDate: this.postBody.purchaseDate,
                         buyer: {
-                            buyerID: this.buyerID
+                            buyerID: this.postBody.buyer.buyerID
                         },
-                        detailList: this.detailList
+                        detailList: this.postBody.detailList
                     })
             },
             addDetail() {
+                this.postBody.detailList.push({
+                    detailID: null,
+                    quantity: null
+                })
 
             },
-            deleteDetail(){
-
+            deleteDetail(index){
+                this.postBody.detailList.splice(index, 1)
             }
 
 
