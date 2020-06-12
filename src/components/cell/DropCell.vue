@@ -1,12 +1,12 @@
 <template>
-    <fish-form class="buyerForm" ref="dropBuyer">
-        <h2>Удалить покупателя</h2>
+    <fish-form class="cellForm" ref="dropCell">
+        <h2>Удалить ячейку</h2>
         <fish-fields>
-            <fish-field label="Введите ID покупателя" span="8" name="buyerID">
+            <fish-field label="Введите ID ячейки" span="8" name="cellID">
                 <fish-input-number v-model="id"></fish-input-number>
             </fish-field>
             <fish-field class="idButton">
-                <fish-button type="negative" @click="dropBuyerById(id)">Удалить покупателя по id</fish-button>
+                <fish-button type="negative" @click="dropCellById(id)">Удалить ячейку по id</fish-button>
             </fish-field>
         </fish-fields>
         <p>{{ data }}</p>
@@ -17,7 +17,7 @@
     import axios from "axios";
 
     export default {
-        name: "drop-buyer",
+        name: "drop-cell",
         data() {
             return {
                 id: null,
@@ -25,15 +25,15 @@
             }
         },
         methods: {
-            dropBuyerById: function () {
-                axios.delete("http://localhost:8081/buyerDrop?buyerID=" + this.id).then(response => (this.data = response.data))
+            dropCellById: function () {
+                axios.delete("http://localhost:8081/cellDrop?cellID=" + this.id).then(response => (this.data = response.data))
             }
         }
     };
 </script>
 
 <style scoped>
-    .buyerForm .idButton {
+    .cellForm .idButton {
         display: grid;
         align-items: end;
     }

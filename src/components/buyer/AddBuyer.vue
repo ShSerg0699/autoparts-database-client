@@ -2,7 +2,8 @@
     <fish-form ref="addBuyer">
         <h2>Добавить покупателя</h2>
         <fish-fields>
-            <fish-field label="Введите имя покупателя" span="8">
+            <fish-field label="Введите имя покупателя" span="8"
+                        :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">
                 <fish-input v-model="postBody.name" hint=""></fish-input>
             </fish-field>
         </fish-fields>
@@ -30,7 +31,7 @@
         },
         methods: {
             addBuyer: function () {
-                axios.post("http://localhost:8081/buyerAdd", {name: this.postBody.name})
+                axios.post("http://localhost:8081/buyerAdd", {name: this.postBody.name}).then(response => (this.data = response.data))
             }
         }
     };

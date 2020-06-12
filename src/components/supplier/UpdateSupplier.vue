@@ -1,6 +1,11 @@
 <template>
-    <fish-form class="supplierForm" ref="addSupplier">
-        <h2>Добавить поставщика</h2>
+    <fish-form class="supplierForm" ref="updateSupplier">
+        <h2>Редактировать данные о поставщике</h2>
+        <fish-fields>
+            <fish-field label="Введите ID покупателя" span="8">
+                <fish-input-number v-model="postBody.id" hint=""></fish-input-number>
+            </fish-field>
+        </fish-fields>
         <fish-fields>
             <fish-field label="Введите имя поставщика" span="12" name="name"
                         :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
@@ -50,7 +55,7 @@
                 <fish-input-number v-model="postBody.discount" hint="" min="0" max="100"></fish-input-number>
             </fish-field>
         </fish-fields>
-        <fish-button type="primary" @click="addSupplier">Добавить</fish-button>
+        <fish-button type="primary" @click="updateSupplier">Обновить</fish-button>
         <p>{{ data }}</p>
 
     </fish-form>
@@ -60,10 +65,11 @@
     import axios from "axios";
 
     export default {
-        name: 'add-supplier',
+        name: 'update-supplier',
         data() {
             return {
                 postBody: {
+                    id: null,
                     name: '',
                     type: null,
                     deliveryTimeMonths: null,
@@ -77,9 +83,10 @@
             }
         },
         methods: {
-            addSupplier() {
-                axios.post("http://localhost:8081/supplierAdd",
+            updateSupplier() {
+                axios.patch("http://localhost:8081/supplierUpdate",
                     {
+                        supplierID: this.postBody.id,
                         name: this.postBody.name,
                         type: this.postBody.type,
                         deliveryTime: this.postBody.deliveryTimeMonths + " MONTHS " + this.postBody.deliveryTimeDays + " DAYS",

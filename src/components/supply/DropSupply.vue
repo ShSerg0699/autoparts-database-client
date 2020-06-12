@@ -1,12 +1,12 @@
 <template>
-    <fish-form class="buyerForm" ref="dropBuyer">
-        <h2>Удалить покупателя</h2>
+    <fish-form class="supplyForm" ref="dropSupply">
+        <h2>Удалить поставку</h2>
         <fish-fields>
-            <fish-field label="Введите ID покупателя" span="8" name="buyerID">
+            <fish-field label="Введите ID поставки" span="8" name="supplyID">
                 <fish-input-number v-model="id"></fish-input-number>
             </fish-field>
             <fish-field class="idButton">
-                <fish-button type="negative" @click="dropBuyerById(id)">Удалить покупателя по id</fish-button>
+                <fish-button type="negative" @click="dropSupplyById(id)">Удалить поставку по id</fish-button>
             </fish-field>
         </fish-fields>
         <p>{{ data }}</p>
@@ -17,7 +17,7 @@
     import axios from "axios";
 
     export default {
-        name: "drop-buyer",
+        name: "drop-supply",
         data() {
             return {
                 id: null,
@@ -25,15 +25,15 @@
             }
         },
         methods: {
-            dropBuyerById: function () {
-                axios.delete("http://localhost:8081/buyerDrop?buyerID=" + this.id).then(response => (this.data = response.data))
+            dropSupplyById: function () {
+                axios.delete("http://localhost:8081/supplyDrop?supplyID=" + this.id).then(response => (this.data = response.data))
             }
         }
     };
 </script>
 
 <style scoped>
-    .buyerForm .idButton {
+    .supplyForm .idButton {
         display: grid;
         align-items: end;
     }

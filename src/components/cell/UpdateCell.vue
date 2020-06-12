@@ -1,19 +1,19 @@
 <template>
-    <fish-form ref="updateBuyer">
-        <h2>Редактировать данные о покупателе</h2>
+    <fish-form ref="updateCell">
+        <h2>Редактировать данные о ячейке</h2>
         <fish-fields>
-            <fish-field label="Введите ID покупателя" span="8">
+            <fish-field label="Введите ID ячейки" span="8">
                 <fish-input-number v-model="postBody.id" hint=""></fish-input-number>
             </fish-field>
         </fish-fields>
         <fish-fields>
-            <fish-field label="Введите имя покупателя" span="8">
-                <fish-input v-model="postBody.name" hint=""></fish-input>
+            <fish-field label="Введите размер ячейки" span="8">
+                <fish-input-number v-model="postBody.space" hint=""></fish-input-number>
             </fish-field>
         </fish-fields>
         <fish-fields>
             <fish-field>
-                <fish-button type="primary" @click="updateBuyer">Обновить</fish-button>
+                <fish-button type="primary" @click="updateCell">Обновить</fish-button>
             </fish-field>
         </fish-fields>
         <p>{{ data }}</p>
@@ -24,22 +24,22 @@
     import axios from "axios";
 
     export default {
-        name: "update-buyer",
+        name: "update-cell",
         data() {
             return {
                 postBody: {
                     id: null,
-                    name: null
+                    space: null
                 },
                 data: null
             }
         },
         methods: {
-            updateBuyer: function () {
-                axios.patch("http://localhost:8081/buyerUpdate",
+            updateCell: function () {
+                axios.patch("http://localhost:8081/cellUpdate",
                     {
-                        buyerID: this.postBody.id,
-                        name: this.postBody.name
+                        cellID: this.postBody.id,
+                        space: this.postBody.space
                     }).then(response => (this.data = response.data))
             }
         }

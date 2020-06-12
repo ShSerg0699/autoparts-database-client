@@ -30,7 +30,7 @@
         },
         methods: {
             addCell: function () {
-                axios.post("http://localhost:8081/cellAdd", {space: this.postBody.space})
+                axios.post("http://localhost:8081/cellAdd", {space: this.postBody.space}).then(response => (this.data = response.data))
             }
         }
     };

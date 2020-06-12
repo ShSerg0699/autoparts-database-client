@@ -1,26 +1,20 @@
 <template>
-    <fish-form class="supplyForm" ref="addSupply">
-        <h2>Добавить поставку</h2>
-        <fish-field label="Введите дату поставки" span="12" name="date"
+    <fish-form class="purchaseForm" ref="updatePurchase">
+        <h2>Редактировать данные о покупке</h2>
+        <fish-fields>
+            <fish-field label="Введите ID покпкуи" span="12" name="buyerID"
+                        :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
+                <fish-input-number v-model="postBody.id"></fish-input-number>
+            </fish-field>
+        </fish-fields>
+        <fish-field label="Введите дату покупки" span="12" name="date"
                     :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">
-            <fish-date-picker v-model="postBody.deliveryDate" hint=""></fish-date-picker>
+            <fish-date-picker v-model="postBody.purchaseDate" hint=""></fish-date-picker>
         </fish-field>
         <fish-fields>
-            <fish-field label="Введите ID поставщика" span="12" name="supplierID"
+            <fish-field label="Введите ID покупателя" span="12" name="buyerID"
                         :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
-                <fish-input-number v-model="postBody.supplier.supplierID"></fish-input-number>
-            </fish-field>
-        </fish-fields>
-        <fish-fields>
-            <fish-field label="Введите коэффициент брака" span="12" name="marriageRate"
-                        :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
-                <fish-input-number v-model="postBody.marriageRate" max="100"></fish-input-number>
-            </fish-field>
-        </fish-fields>
-        <fish-fields>
-            <fish-field label="Введите таможенное оформление" span="12" name="customsClearance"
-                        :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
-                <fish-input-number v-model="postBody.customsClearance"></fish-input-number>
+                <fish-input-number v-model="postBody.buyer.buyerID"></fish-input-number>
             </fish-field>
         </fish-fields>
         <fish-fields>
@@ -43,7 +37,7 @@
         </fish-fields>
 
 
-        <fish-button type="primary" @click="submitHandler">Добавить</fish-button>
+        <fish-button type="primary" @click="submitHandler">Обновить</fish-button>
         <p>{{ data }}</p>
 
     </fish-form>
@@ -53,16 +47,15 @@
     import axios from "axios";
 
     export default {
-        name: 'add-supply',
+        name: 'update-purchase',
         data() {
             return {
                 postBody: {
-                    deliveryDate: '',
-                    supplier: {
-                        supplierID: null
+                    id: null,
+                    purchaseDate: '',
+                    buyer: {
+                        buyerID: ''
                     },
-                    marriageRate: null,
-                    customsClearance: null,
                     detailList: [
                         {
                             detailID: null,
@@ -75,14 +68,13 @@
         },
         methods: {
             submitHandler() {
-                axios.post("http://localhost:8081/supplyAdd",
+                axios.patch("http://localhost:8081/purchaseUpdate",
                     {
-                        deliveryDate: this.postBody.deliveryDate,
-                        supplier: {
-                            supplierID: this.postBody.supplier.supplierID
+                        purchaseID: this.postBody.id,
+                        purchaseDate: this.postBody.purchaseDate,
+                        buyer: {
+                            buyerID: this.postBody.buyer.buyerID
                         },
-                        marriageRate: this.postBody.marriageRate,
-                        customsClearance: this.postBody.customsClearance,
                         detailList: this.postBody.detailList
                     }).then(response => (this.data = response.data))
             },
@@ -103,7 +95,7 @@
 </script>
 
 <style scoped>
-    .supplyForm .dropDetail{
+    .purchaseForm .dropDetail{
         display: grid;
         align-items: end;
     }

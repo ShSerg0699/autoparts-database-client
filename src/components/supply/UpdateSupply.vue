@@ -1,6 +1,12 @@
 <template>
-    <fish-form class="supplyForm" ref="addSupply">
-        <h2>Добавить поставку</h2>
+    <fish-form class="supplyForm" ref="updateSupply">
+        <h2>Редактировать данные о поставке</h2>
+        <fish-fields>
+            <fish-field label="Введите ID поставки" span="12" name="supplierID"
+                        :rules="[{ required: true, message: 'данное поле не должно быть пустым'}]">
+                <fish-input-number v-model="postBody.supplyID"></fish-input-number>
+            </fish-field>
+        </fish-fields>
         <fish-field label="Введите дату поставки" span="12" name="date"
                     :rules="[{required: true, message: 'данное поле не должно быть пустым'}]">
             <fish-date-picker v-model="postBody.deliveryDate" hint=""></fish-date-picker>
@@ -43,7 +49,7 @@
         </fish-fields>
 
 
-        <fish-button type="primary" @click="submitHandler">Добавить</fish-button>
+        <fish-button type="primary" @click="submitHandler">Обновить</fish-button>
         <p>{{ data }}</p>
 
     </fish-form>
@@ -53,10 +59,11 @@
     import axios from "axios";
 
     export default {
-        name: 'add-supply',
+        name: 'update-supply',
         data() {
             return {
                 postBody: {
+                    supplyID: null,
                     deliveryDate: '',
                     supplier: {
                         supplierID: null
@@ -75,8 +82,9 @@
         },
         methods: {
             submitHandler() {
-                axios.post("http://localhost:8081/supplyAdd",
+                axios.patch("http://localhost:8081/supplyUpdate",
                     {
+                        supplyID: this.postBody.supplyID,
                         deliveryDate: this.postBody.deliveryDate,
                         supplier: {
                             supplierID: this.postBody.supplier.supplierID
