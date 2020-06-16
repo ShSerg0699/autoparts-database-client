@@ -12,6 +12,7 @@
                 <fish-button type="primary" @click="getAllCell">Посмотреть все ячейки</fish-button>
             </fish-field>
         </fish-fields>
+        <fish-table :columns="columns" :data="data" :pagination="page"></fish-table>
         <p>{{ data }}</p>
     </fish-form>
 </template>
@@ -23,13 +24,19 @@
         name: "get-cell",
         data() {
             return {
+                page: {total: 10, current: 1},
+                columns: [
+                    {title: 'ID', key: 'cellID'},
+                    {title: 'Space', key: 'space'},
+                    {title: 'Details', key: 'detailList'}
+                ],
                 id: null,
-                data: null
+                data: []
             }
         },
         methods: {
             getCellById: function () {
-                axios.get("http://localhost:8081/cell?cellID=" + this.id).then(response => (this.data = response.data))
+                axios.get("http://localhost:8081/cell?cellID=" + this.id).then(response => (this.data = [response.data]))
             },
             getAllCell: function () {
                 axios.get("http://localhost:8081/cellAll").then(response => (this.data = response.data))

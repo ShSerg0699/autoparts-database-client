@@ -88,7 +88,7 @@
             },
             addDetail() {
                 this.postBody.detailList.push({
-                    detailID: null,
+                    supplierID: null,
                     quantity: null
                 })
 

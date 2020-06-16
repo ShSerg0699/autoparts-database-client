@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Autoparts logo" src="../assets/auto_parts.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HelloWorld msg="Welcome to Autoparts database" />
   </div>
 </template>
 

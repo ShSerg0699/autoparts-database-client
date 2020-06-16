@@ -4,7 +4,7 @@
             <div class="logo">Таблицы</div>
         </nav>
         <div slot="sider">
-            <fish-menu mode="inline" style="width: 220px;">
+            <fish-menu mode="inline" style="width: 240px;">
                 <fish-submenu index="0" mode="inline">
                     <template slot="title">Покупатели</template>
                     <fish-option index="0-0" content="Добавить покупателя"
@@ -151,7 +151,7 @@
 
     .fish.layout.tables .has-sider > .content {
         margin: 20px;
-        padding: 0.7em 1em;
+        padding: 0.7em 5em;
     }
 
     .fish.layout.tables .logo {

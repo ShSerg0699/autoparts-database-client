@@ -12,7 +12,10 @@
                 <fish-button type="primary" @click="getAllPurchase">Посмотреть все покупки</fish-button>
             </fish-field>
         </fish-fields>
-        <p>{{ data }}</p>
+        <fish-field>
+            <fish-table :columns="columns" :data="data" :pagination="page"></fish-table>
+        </fish-field>
+        <p>{{data}}</p>
     </fish-form>
 </template>
 
@@ -23,13 +26,20 @@
         name: "get-purchase",
         data() {
             return {
+                page: {total: 10, current: 1},
+                columns: [
+                    {title: 'ID', key: 'purchaseID'},
+                    {title: 'Buyer', key: 'buyerID'},
+                    {title: 'Purchase Date', key: 'purchaseDate'},
+                    {title: 'Detail List', key: 'detailList'}
+                ],
                 id: null,
-                data: null
+                data: []
             }
         },
         methods: {
             getPurchaseById: function () {
-                axios.get("http://localhost:8081/purchase?purchaseID=" + this.id).then(response => (this.data = response.data))
+                axios.get("http://localhost:8081/purchase?purchaseID=" + this.id).then(response => (this.data = [response.data]))
             },
             getAllPurchase: function () {
                 axios.get("http://localhost:8081/purchaseAll").then(response => (this.data = response.data))
